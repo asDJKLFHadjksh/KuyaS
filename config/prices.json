@@ -25,7 +25,7 @@
       "overRatePerMin": 0,
       "leadTime": "Tidak ada deadline",
       "workloadPerMin": 1095,
-      "disabled": true,
+      "disabled": false,
       "deadlinePolicy": {
         "minDaysPerMinute": 2,
         "idealDaysPerMinute": 5,
