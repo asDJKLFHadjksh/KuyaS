@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+</head>
+<body>
+<script>
+  // daftar tujuan redirect
+  const routes = {
+    youtube: "https://www.youtube.com/@KuhyaKuya",
+    yt: "https://www.youtube.com/@KuhyaKuya",
+
+    tiktok: "https://tiktok.com/@akun_resmi",
+    tt: "https://tiktok.com/@akun_resmi",
+
+    instagram: "https://www.instagram.com/kuhyakuya?igsh=bmxxN2lvdXRoOXZ5",
+    ig: "https://www.instagram.com/kuhyakuya?igsh=bmxxN2lvdXRoOXZ5",
+
+    discord: "https://discord.com/invite/YqKVt4CREE",
+    dc: "https://discord.com/invite/YqKVt4CREE"
+  };
+
+  // ambil parameter ?to=
+  const params = new URLSearchParams(window.location.search);
+  const target = params.get("to");
+
+  // cek valid dan redirect
+  if (target && routes[target]) {
+    window.location.replace(routes[target]);
+  } else {
+    // fallback kalau salah / kosong
+    window.location.replace("https://kuhyakuya.com");
+  }
+</script>
+</body>
+</html>
