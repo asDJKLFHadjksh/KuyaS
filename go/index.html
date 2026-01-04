@@ -6,11 +6,19 @@
 </head>
 <body>
 <script>
-  // daftar tujuan redirect
-  const routes = {
-    youtube: "http://youtube.com/c/KuhyaKuya?sub_confirmation=1",
-    yt: "http://youtube.com/c/KuhyaKuya?sub_confirmation=1",
+  /* =========================
+     CONFIG
+  ========================= */
 
+  // YouTube channels
+  const ytMain = "https://youtube.com/@KuhyaKuyaMain?sub_confirmation=1";
+  const ytOthers = [
+    "https://youtube.com/@KuhyaKuyaClips",
+    "https://youtube.com/@KuhyaKuyaShorts"
+  ];
+
+  // Other platforms
+  const routes = {
     tiktok: "https://tiktok.com/@akun_resmi",
     tt: "https://tiktok.com/@akun_resmi",
 
@@ -21,19 +29,46 @@
     dc: "https://discord.com/invite/YqKVt4CREE"
   };
 
-  // ambil parameter ?to=
-  const params = new URLSearchParams(window.location.search);
-  const target = params.get("to");
+  const FALLBACK_URL = "https://kuhyakuya.com/go/fallback.html";
 
-  // cek valid dan redirect
-  if (target && routes[target]) {
+  /* =========================
+     HELPERS
+  ========================= */
+
+  function isDesktop() {
+    return !/android|iphone|ipad|ipod/i.test(navigator.userAgent);
+  }
+
+  function openYouTubeBundle() {
+    // popup channel lain (desktop only)
+    if (isDesktop()) {
+      ytOthers.forEach(url => {
+        window.open(url, "_blank");
+      });
+    }
+
+    // channel utama (tab aktif)
+    window.location.replace(ytMain);
+  }
+
+  /* =========================
+     ROUTER
+  ========================= */
+
+  const params = new URLSearchParams(window.location.search);
+  const rawTarget = params.get("to");
+  const target = rawTarget ? rawTarget.toLowerCase() : null;
+
+  if (target === "yt" || target === "youtube") {
+    // kasih delay dikit biar lebih natural & kadang lebih lolos popup
+    setTimeout(openYouTubeBundle, 120);
+
+  } else if (target && routes[target]) {
     window.location.replace(routes[target]);
+
   } else {
-    // fallback kalau salah / kosong
-    window.location.replace("https://kuhyakuya.com/go/fallback.html");
+    window.location.replace(FALLBACK_URL);
   }
 </script>
 </body>
 </html>
-
-
