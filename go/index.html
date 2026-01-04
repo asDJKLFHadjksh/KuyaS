@@ -6,18 +6,11 @@
 </head>
 <body>
 <script>
-  /* =========================
-     CONFIG
-  ========================= */
-
-  // YouTube channels
-  const ytMain = "http://youtube.com/c/KuhyaKuya?sub_confirmation=1";
-  const ytOthers = [
-    "https://www.youtube.com/@KuhyaKuyaStudio?sub_confirmation=1"
-  ];
-
-  // Other platforms
+  // daftar tujuan redirect
   const routes = {
+    youtube: "http://youtube.com/c/KuhyaKuya?sub_confirmation=1",
+    yt: "http://youtube.com/c/KuhyaKuya?sub_confirmation=1",
+
     tiktok: "https://tiktok.com/@akun_resmi",
     tt: "https://tiktok.com/@akun_resmi",
 
@@ -28,48 +21,18 @@
     dc: "https://discord.com/invite/YqKVt4CREE"
   };
 
-  const FALLBACK_URL = "https://kuhyakuya.com/go/fallback.html";
-
-  /* =========================
-     HELPERS
-  ========================= */
-
-  function isDesktop() {
-    return !/android|iphone|ipad|ipod/i.test(navigator.userAgent);
-  }
-
-  function openYouTubeBundle() {
-    // popup channel lain (desktop only)
-    if (isDesktop()) {
-      ytOthers.forEach(url => {
-        window.open(url, "_blank");
-      });
-    }
-
-    // channel utama (tab aktif)
-    window.location.replace(ytMain);
-  }
-
-  /* =========================
-     ROUTER
-  ========================= */
-
+  // ambil parameter ?to=
   const params = new URLSearchParams(window.location.search);
-  const rawTarget = params.get("to");
-  const target = rawTarget ? rawTarget.toLowerCase() : null;
+  const target = params.get("to");
 
-  if (target === "yt" || target === "youtube") {
-    // kasih delay dikit biar lebih natural & kadang lebih lolos popup
-    setTimeout(openYouTubeBundle, 2000);
-
-  } else if (target && routes[target]) {
+  // cek valid dan redirect
+  if (target && routes[target]) {
     window.location.replace(routes[target]);
-
   } else {
-    window.location.replace(FALLBACK_URL);
+    // fallback kalau salah / kosong
+    window.location.replace("https://kuhyakuya.com/go/fallback.html");
   }
 </script>
 </body>
 </html>
-
 
